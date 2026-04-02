@@ -86,14 +86,6 @@ export default function NewsTicker() {
                   transition: "all 0.2s",
                   borderRadius: 4,
                 }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background = C.gray50;
-                  e.currentTarget.style.paddingLeft = "12px";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "transparent";
-                  e.currentTarget.style.paddingLeft = "0";
-                }}
               >
                 <span
                   style={{

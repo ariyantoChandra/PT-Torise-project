@@ -1,7 +1,11 @@
-import { C } from "@/lib/colors";
+"use client"; // Tambahkan ini karena kita pakai context
+import { C } from "../../../lib/colors";
 import { MapPin } from "lucide-react";
+import { useLanguage } from "../../../lib/i18n/LanguageContext";
 
 export default function Footer() {
+  const { t } = useLanguage(); // Ambil fungsi t untuk translate
+
   return (
     <footer
       style={{
@@ -58,7 +62,7 @@ export default function Footer() {
                 maxWidth: 300,
               }}
             >
-              外国人労働者と企業を繋ぐ専門の登録支援機関。すべての人が日本で安心して働けるよう支援します。
+              {t("footer.desc")}
             </p>
             <div
               style={{
@@ -73,10 +77,8 @@ export default function Footer() {
                 color={C.teal}
                 style={{ marginTop: 2, flexShrink: 0 }}
               />
-              <span>
-                〒100-0005 東京都千代田区丸の内1-1-1
-                <br />
-                ToriseJapan Bldg. 8F
+              <span style={{ whiteSpace: "pre-line" }}>
+                {t("footer.address")}
               </span>
             </div>
           </div>
@@ -91,15 +93,9 @@ export default function Footer() {
                 textTransform: "uppercase",
               }}
             >
-              Services
+              {t("footer.services")}
             </div>
-            {[
-              "外国人雇用支援",
-              "在留資格申請",
-              "生活サポート",
-              "日本語研修",
-              "採用コンサルティング",
-            ].map((s) => (
+            {t("footer.serviceLinks").map((s) => (
               <a
                 key={s}
                 href="#"
@@ -110,12 +106,6 @@ export default function Footer() {
                   textDecoration: "none",
                   marginBottom: 8,
                   transition: "color 0.2s",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = C.tealLight;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = "rgba(255,255,255,0.55)";
                 }}
               >
                 {s}
@@ -133,14 +123,9 @@ export default function Footer() {
                 textTransform: "uppercase",
               }}
             >
-              Company
+              {t("footer.company")}
             </div>
-            {[
-              "会社概要",
-              "採用情報",
-              "プライバシーポリシー",
-              "特定商取引法",
-            ].map((s) => (
+            {t("footer.companyLinks").map((s) => (
               <a
                 key={s}
                 href="#"
@@ -151,12 +136,6 @@ export default function Footer() {
                   textDecoration: "none",
                   marginBottom: 8,
                   transition: "color 0.2s",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.color = C.tealLight;
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.color = "rgba(255,255,255,0.55)";
                 }}
               >
                 {s}
@@ -175,11 +154,9 @@ export default function Footer() {
             gap: "0.5rem",
           }}
         >
-          <div style={{ fontSize: 12 }}>
-            © 2025 Torise Japan Co., Ltd. All rights reserved.
-          </div>
+          <div style={{ fontSize: 12 }}>{t("footer.rights")}</div>
           <div style={{ fontSize: 12, color: C.teal }}>
-            登録支援機関 登録番号 第XXXXX号
+            {t("footer.license")}
           </div>
         </div>
       </div>

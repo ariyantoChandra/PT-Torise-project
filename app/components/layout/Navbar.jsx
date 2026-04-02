@@ -1,11 +1,13 @@
 "use client";
 import { useState, useEffect } from "react";
-import { ArrowRight, Menu, X } from "lucide-react";
-import { C } from "../../../lib/colors"; // Path sudah disesuaikan
+import { ArrowRight, Menu, X, Globe } from "lucide-react"; // Import Globe untuk icon bahasa
+import { C } from "../../../lib/colors";
+import { useLanguage } from "../../../lib/i18n/LanguageContext"; // Import fitur bahasa
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const { lang, setLang, t } = useLanguage(); // Gunakan fitur bahasa
 
   useEffect(() => {
     const h = () => setScrolled(window.scrollY > 20);
@@ -13,11 +15,12 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", h);
   }, []);
 
+  // Menu sekarang menggunakan fungsi t() dari kamus
   const links = [
-    { label: "会社概要", en: "Company", href: "#about" },
-    { label: "メリット", en: "Merit", href: "#merit" },
-    { label: "ご利用の流れ", en: "Flow", href: "#flow" },
-    { label: "料金", en: "Pricing", href: "#pricing" },
+    { label: t("nav.company"), en: "Company", href: "#about" },
+    { label: t("nav.merit"), en: "Merit", href: "#merit" },
+    { label: t("nav.flow"), en: "Flow", href: "#flow" },
+    { label: t("nav.pricing"), en: "Pricing", href: "#pricing" },
   ];
 
   return (
@@ -87,11 +90,10 @@ export default function Navbar() {
                 lineHeight: 1,
               }}
             >
-              Employment Support
+              {t("nav.support")}
             </div>
           </div>
         </div>
-
         {/* Desktop links */}
         <div
           style={{ display: "flex", alignItems: "center", gap: 8 }}
@@ -124,9 +126,34 @@ export default function Navbar() {
             </a>
           ))}
         </div>
-
-        {/* CTA */}
+        {/* CTA & Switcher Bahasa */}
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+          {/* TOMBOL SWITCHER BAHASA */}
+          <button
+            onClick={() => setLang(lang === "ja" ? "id" : "ja")}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 6,
+              background: "rgba(255,255,255,0.1)",
+              border: "1px solid rgba(255,255,255,0.2)",
+              color: "#fff",
+              padding: "8px 12px",
+              borderRadius: 8,
+              fontSize: 13,
+              cursor: "pointer",
+              transition: "all 0.2s",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.background = "rgba(255,255,255,0.2)";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.background = "rgba(255,255,255,0.1)";
+            }}
+          >
+            <Globe size={14} /> {lang === "ja" ? "ID" : "JA"}
+          </button>
+
           <a
             href="#contact"
             style={{
@@ -152,7 +179,7 @@ export default function Navbar() {
               e.currentTarget.style.transform = "translateY(0)";
             }}
           >
-            お問い合わせ <ArrowRight size={14} />
+            {t("nav.contact")} <ArrowRight size={14} />
           </a>
           <button
             onClick={() => setOpen(!open)}
@@ -169,7 +196,6 @@ export default function Navbar() {
           </button>
         </div>
       </div>
-
       {/* Mobile menu */}
       {open && (
         <div
@@ -210,7 +236,7 @@ export default function Navbar() {
               fontWeight: 600,
             }}
           >
-            お問い合わせ
+            {t("nav.contact")}
           </a>
         </div>
       )}
