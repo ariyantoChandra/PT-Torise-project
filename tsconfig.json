@@ -29,6 +29,6 @@
     ".next/types/**/*.ts",
     ".next/dev/types/**/*.ts",
     "**/*.mts"
-  ],
+, "hooks/useReveal.js", "app/components/sections/Hero.jsx", "app/components/layout/Navbar.jsx", "app/components/ui/Reveal.jsx", "app/page.jsx"  ],
   "exclude": ["node_modules"]
 }
