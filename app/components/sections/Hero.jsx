@@ -6,8 +6,8 @@ import {
   Briefcase,
   HeartHandshake,
 } from "lucide-react";
-import { C } from "@/lib/colors";
-import Reveal from "@/components/ui/Reveal";
+import { C } from "../lib/colors";
+import Reveal from "./components/ui/Reveal";
 
 export default function Hero() {
   return (

@@ -1,7 +1,13 @@
-"use client";
-import { C } from "@/lib/colors";
-import Reveal from "@/components/ui/Reveal";
-import { ArrowRight } from "lucide-react";
+import Reveal from "../ui/Reveal"; // Pastikan path ini benar
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"; // Import shadcn Card
+import { Button } from "@/components/ui/button"; // Import shadcn Button
 
 export default function Pricing() {
   const plans = [
@@ -52,215 +58,102 @@ export default function Pricing() {
   ];
 
   return (
-    <section
-      id="pricing"
-      style={{ background: C.offWhite, padding: "6rem 1.5rem" }}
-    >
-      <div style={{ maxWidth: 1200, margin: "0 auto" }}>
+    <section id="pricing" className="bg-slate-50 py-24 px-6">
+      <div className="max-w-6xl mx-auto">
         <Reveal>
-          <div style={{ textAlign: "center", marginBottom: "3.5rem" }}>
-            <div
-              style={{
-                fontSize: 12,
-                letterSpacing: "3px",
-                textTransform: "uppercase",
-                color: C.teal,
-                fontWeight: 700,
-                marginBottom: "0.75rem",
-              }}
-            >
+          <div className="text-center mb-14">
+            <div className="text-xs tracking-widest uppercase text-teal-600 font-bold mb-3">
               Pricing / 料金
             </div>
-            <h2
-              style={{
-                fontFamily: "'Georgia', serif",
-                fontSize: "clamp(1.6rem, 2.5vw, 2.4rem)",
-                color: C.navy,
-                fontWeight: 700,
-                margin: 0,
-              }}
-            >
+            <h2 className="font-serif text-3xl md:text-4xl text-slate-900 font-bold m-0">
               シンプルな料金プラン
             </h2>
           </div>
         </Reveal>
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))",
-            gap: "1.25rem",
-            alignItems: "stretch",
-          }}
-        >
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-stretch">
           {plans.map((p, i) => (
             <Reveal key={p.name} delay={i * 100}>
-              <div
-                style={{
-                  background: p.featured ? C.navy : C.white,
-                  borderRadius: 20,
-                  padding: "2rem",
-                  border: p.featured
-                    ? `2px solid ${C.teal}`
-                    : `1px solid ${C.gray100}`,
-                  position: "relative",
-                  height: "100%",
-                  boxSizing: "border-box",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
+              <Card
+                className={`h-full flex flex-col relative ${p.featured ? "bg-slate-900 border-teal-500 border-2" : "bg-white border-slate-200"}`}
               >
                 {p.featured && (
-                  <div
-                    style={{
-                      position: "absolute",
-                      top: -14,
-                      left: "50%",
-                      transform: "translateX(-50%)",
-                      background: C.teal,
-                      color: "#fff",
-                      fontSize: 12,
-                      fontWeight: 700,
-                      padding: "4px 18px",
-                      borderRadius: 100,
-                      letterSpacing: "0.5px",
-                    }}
-                  >
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-teal-500 text-white text-xs font-bold px-4 py-1 rounded-full tracking-wide">
                     おすすめ
                   </div>
                 )}
-                <div style={{ marginBottom: "1.5rem" }}>
+                <CardHeader>
                   <div
-                    style={{
-                      fontSize: 12,
-                      color: p.featured ? C.teal : C.teal,
-                      fontWeight: 600,
-                      letterSpacing: "1px",
-                      textTransform: "uppercase",
-                      marginBottom: 6,
-                    }}
+                    className={`text-xs font-semibold tracking-wider uppercase mb-2 ${p.featured ? "text-teal-400" : "text-teal-600"}`}
                   >
                     {p.en}
                   </div>
-                  <h3
-                    style={{
-                      fontSize: 20,
-                      fontWeight: 700,
-                      color: p.featured ? "#fff" : C.navy,
-                      margin: "0 0 .5rem",
-                    }}
+                  <CardTitle
+                    className={`text-2xl ${p.featured ? "text-white" : "text-slate-900"}`}
                   >
                     {p.name}
-                  </h3>
-                  <p
-                    style={{
-                      fontSize: 13,
-                      color: p.featured ? "rgba(255,255,255,0.55)" : C.gray600,
-                      margin: 0,
-                      lineHeight: 1.5,
-                    }}
+                  </CardTitle>
+                  <CardDescription
+                    className={`${p.featured ? "text-white/60" : "text-slate-500"}`}
                   >
                     {p.desc}
-                  </p>
-                </div>
-                <div style={{ marginBottom: "1.75rem" }}>
-                  <span
-                    style={{
-                      fontSize: 36,
-                      fontWeight: 800,
-                      color: p.featured ? C.tealLight : C.navy,
-                    }}
-                  >
-                    {p.price}
-                  </span>
-                  <span
-                    style={{
-                      fontSize: 14,
-                      color: p.featured ? "rgba(255,255,255,0.45)" : C.gray400,
-                    }}
-                  >
-                    {p.per}
-                  </span>
-                </div>
-                <ul
-                  style={{
-                    margin: "0 0 2rem",
-                    padding: 0,
-                    listStyle: "none",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: 10,
-                    flex: 1,
-                  }}
-                >
-                  {p.features.map((f) => (
-                    <li
-                      key={f}
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        gap: 10,
-                        fontSize: 14,
-                        color: p.featured ? "rgba(255,255,255,0.8)" : C.gray600,
-                      }}
+                  </CardDescription>
+                </CardHeader>
+
+                <CardContent className="flex-1">
+                  <div className="mb-6">
+                    <span
+                      className={`text-4xl font-extrabold ${p.featured ? "text-teal-400" : "text-slate-900"}`}
                     >
-                      <div
-                        style={{
-                          width: 18,
-                          height: 18,
-                          borderRadius: "50%",
-                          background: p.featured
-                            ? "rgba(13,148,136,0.3)"
-                            : C.tealPale,
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          flexShrink: 0,
-                        }}
+                      {p.price}
+                    </span>
+                    <span
+                      className={`text-sm ${p.featured ? "text-white/50" : "text-slate-400"}`}
+                    >
+                      {p.per}
+                    </span>
+                  </div>
+
+                  <ul className="space-y-3">
+                    {p.features.map((f) => (
+                      <li
+                        key={f}
+                        className={`flex items-center gap-3 text-sm ${p.featured ? "text-white/80" : "text-slate-600"}`}
                       >
-                        <svg width="10" height="10" viewBox="0 0 10 10">
-                          <polyline
-                            points="2,5 4.5,7.5 8,3"
-                            fill="none"
-                            stroke={C.teal}
-                            strokeWidth="1.5"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                          />
-                        </svg>
-                      </div>
-                      {f}
-                    </li>
-                  ))}
-                </ul>
-                <a
-                  href="#contact"
-                  style={{
-                    display: "block",
-                    textAlign: "center",
-                    textDecoration: "none",
-                    background: p.featured ? C.teal : "transparent",
-                    color: p.featured ? "#fff" : C.navy,
-                    border: p.featured ? "none" : `2px solid ${C.navy}`,
-                    padding: "12px",
-                    borderRadius: 10,
-                    fontSize: 14,
-                    fontWeight: 700,
-                    transition: "all 0.2s",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.opacity = "0.85";
-                    e.currentTarget.style.transform = "translateY(-1px)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.opacity = "1";
-                    e.currentTarget.style.transform = "translateY(0)";
-                  }}
-                >
-                  {p.price === "要相談"
-                    ? "詳細を問い合わせる"
-                    : "このプランで始める"}
-                </a>
-              </div>
+                        <div
+                          className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 ${p.featured ? "bg-teal-500/20" : "bg-teal-100"}`}
+                        >
+                          <svg width="10" height="10" viewBox="0 0 10 10">
+                            <polyline
+                              points="2,5 4.5,7.5 8,3"
+                              fill="none"
+                              stroke={p.featured ? "#2dd4bf" : "#0d9488"}
+                              strokeWidth="1.5"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                            />
+                          </svg>
+                        </div>
+                        {f}
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+
+                <CardFooter>
+                  <Button
+                    asChild
+                    className={`w-full font-bold ${p.featured ? "bg-teal-500 hover:bg-teal-400 text-white" : "bg-transparent border-2 border-slate-900 text-slate-900 hover:bg-slate-100"}`}
+                    variant={p.featured ? "default" : "outline"}
+                  >
+                    <a href="#contact">
+                      {p.price === "要相談"
+                        ? "詳細を問い合わせる"
+                        : "このプランで始める"}
+                    </a>
+                  </Button>
+                </CardFooter>
+              </Card>
             </Reveal>
           ))}
         </div>
