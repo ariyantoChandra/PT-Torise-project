@@ -2,11 +2,11 @@ import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import Hero from "./components/sections/Hero";
 import NewsTicker from "./components/sections/NewsTicker";
-import About from "./components/sections/About";
-import Merit from "./components/sections/Merit";
-import Flow from "./components/sections/Flow";
+//import About from "./components/sections/About";
+//import Merit from "./components/sections/Merit";
+//import Flow from "./components/sections/Flow";
 import Pricing from "./components/sections/Pricing";
-import Contact from "./components/sections/Contact";
+//import Contact from "./components/sections/Contact";
 
 export default function ToriseJapan() {
   return (
@@ -20,11 +20,12 @@ export default function ToriseJapan() {
       <Navbar />
       <Hero />
       <NewsTicker />
-      <About />
-      <Merit />
-      <Flow />
+      {/* MATIKAN SEMENTARA */}
+      {/* <About /> */}
+      {/* <Merit /> */}
+      {/* <Flow /> */}
       <Pricing />
-      <Contact />
+      {/* <Contact /> */}
       <Footer />
     </div>
   );
