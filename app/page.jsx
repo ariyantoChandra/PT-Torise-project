@@ -4,7 +4,7 @@ import Navbar from "./components/layout/Navbar";
 import Footer from "./components/layout/Footer";
 import Hero from "./components/sections/Hero";
 import NewsTicker from "./components/sections/NewsTicker";
-import Pricing from "./components/sections/Pricing";
+import Contact from "./components/sections/Contact";
 
 export default function ToriseJapan() {
 
@@ -19,7 +19,7 @@ export default function ToriseJapan() {
       <Navbar />
       <Hero />
       <NewsTicker />
-      <Pricing />
+      <Contact />
       <Footer />
     </div>
   );

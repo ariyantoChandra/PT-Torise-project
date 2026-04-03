@@ -1,14 +1,13 @@
 "use client";
 import { useState, useEffect } from "react";
-import Image from "next/image";
-import { ArrowRight, Menu, X, Globe } from "lucide-react"; // Import Globe untuk icon bahasa
+import { Menu, X, Globe } from "lucide-react"; // ArrowRight dihapus karena sudah tidak dipakai
 import { C } from "../../../lib/colors";
-import { useLanguage } from "../../../lib/i18n/LanguageContext"; // Import fitur bahasa
+import { useLanguage } from "../../../lib/i18n/LanguageContext";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { lang, setLang, t } = useLanguage(); // Gunakan fitur bahasa
+  const { lang, setLang, t } = useLanguage();
 
   useEffect(() => {
     const h = () => setScrolled(window.scrollY > 20);
@@ -16,12 +15,20 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", h);
   }, []);
 
+  // Update href menggunakan absolute path agar aman dipakai di semua halaman
   const links = [
-    { label: t("nav.company"), en: "Company", href: "../company" },
-    { label: t("nav.merit"), en: "Merit", href: "#merit" },
-    { label: t("nav.flow"), en: "Flow", href: "#flow" },
-    { label: t("nav.pricing"), en: "Pricing", href: "#pricing" },
+    { label: t("nav.company"), href: "../company" },
+    { label: t("nav.merit"), href: "/#merit" },
+    { label: t("nav.flow"), href: "/#flow" },
+    { label: t("nav.contact"), href: "/#contact" },
   ];
+
+  // Efek shrink (mengecil saat scroll)
+  const navHeight = scrolled ? 70 : 110;
+  const logoSize = scrolled ? 40 : 64;
+  const titleSize = scrolled ? 18 : 26;
+  const subSize = scrolled ? 10 : 13;
+  const linkSize = scrolled ? 14 : 16;
 
   return (
     <nav
@@ -31,11 +38,13 @@ export default function Navbar() {
         left: 0,
         right: 0,
         zIndex: 50,
-        background: scrolled ? "rgba(13,35,64,0.85)" : "rgba(13,35,64,0.6)",
+        background: scrolled ? "rgba(13,35,64,0.95)" : "rgba(13,35,64,0.3)",
         backdropFilter: "blur(16px)",
         WebkitBackdropFilter: "blur(16px)",
-        borderBottom: scrolled ? `1px solid rgba(255,255,255,0.08)` : "none",
-        transition: "all 0.35s ease",
+        borderBottom: scrolled
+          ? `1px solid rgba(255,255,255,0.08)`
+          : "1px solid transparent",
+        transition: "all 0.4s ease",
       }}
     >
       <div
@@ -46,47 +55,64 @@ export default function Navbar() {
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          height: 68,
+          height: navHeight,
+          transition: "height 0.4s ease",
         }}
       >
         {/* Logo */}
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <Image 
-            src="/logo-lpk-i.png" 
-            alt="Torise Japan Logo" 
-            width={38} 
-            height={38} 
-            style={{ borderRadius: "8px", objectFit: "contain" }}
+        <a
+          href="/"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 12,
+            textDecoration: "none",
+          }}
+        >
+          <img
+            src="/logo-lpk-i.png"
+            alt="Torise Indonesia Logo"
+            style={{
+              width: logoSize,
+              height: logoSize,
+              borderRadius: "8px",
+              objectFit: "contain",
+              transition: "all 0.4s ease",
+            }}
           />
-          
           <div>
             <div
               style={{
-                fontWeight: 700,
-                fontSize: 17,
+                fontWeight: 800,
+                fontSize: titleSize,
                 color: "#fff",
                 letterSpacing: "0.5px",
                 lineHeight: 1.1,
+                transition: "all 0.4s ease",
               }}
             >
               Torise Japan
             </div>
             <div
               style={{
-                fontSize: 10,
+                fontSize: subSize,
                 color: C.tealLight,
                 letterSpacing: "1.5px",
                 textTransform: "uppercase",
                 lineHeight: 1,
+                marginTop: scrolled ? "2px" : "6px",
+                fontWeight: 600,
+                transition: "all 0.4s ease",
               }}
             >
               {t("nav.support")}
             </div>
           </div>
-        </div>
+        </a>
+
         {/* Desktop links */}
         <div
-          style={{ display: "flex", alignItems: "center", gap: 8 }}
+          style={{ display: "flex", alignItems: "center", gap: 12 }}
           className="nav-links"
         >
           {links.map((l) => (
@@ -95,28 +121,29 @@ export default function Navbar() {
               href={l.href}
               style={{
                 textDecoration: "none",
-                padding: "8px 14px",
-                borderRadius: 6,
-                color: "rgba(255,255,255,0.82)",
-                fontSize: 14,
-                fontWeight: 500,
-                transition: "all 0.2s",
+                padding: "10px 16px",
+                borderRadius: 8,
+                color: "rgba(255,255,255,0.85)",
+                fontSize: linkSize,
+                fontWeight: 600,
+                transition: "all 0.3s ease",
                 letterSpacing: "0.2px",
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.color = "#fff";
-                e.currentTarget.style.background = "rgba(255,255,255,0.1)";
+                e.currentTarget.style.background = "rgba(255,255,255,0.15)";
               }}
               onMouseLeave={(e) => {
-                e.currentTarget.style.color = "rgba(255,255,255,0.82)";
+                e.currentTarget.style.color = "rgba(255,255,255,0.85)";
                 e.currentTarget.style.background = "transparent";
               }}
             >
-              <span style={{ fontSize: 12, opacity: 0.65 }}>{l.label}</span>
+              {l.label}
             </a>
           ))}
         </div>
-        {/* CTA & Switcher Bahasa */}
+
+        {/* Switcher Bahasa & Menu Burger */}
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
           {/* TOMBOL SWITCHER BAHASA */}
           <button
@@ -128,11 +155,11 @@ export default function Navbar() {
               background: "rgba(255,255,255,0.1)",
               border: "1px solid rgba(255,255,255,0.2)",
               color: "#fff",
-              padding: "8px 12px",
+              padding: scrolled ? "8px 12px" : "10px 16px",
               borderRadius: 8,
-              fontSize: 13,
+              fontSize: linkSize - 1,
               cursor: "pointer",
-              transition: "all 0.2s",
+              transition: "all 0.4s ease",
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.background = "rgba(255,255,255,0.2)";
@@ -141,36 +168,13 @@ export default function Navbar() {
               e.currentTarget.style.background = "rgba(255,255,255,0.1)";
             }}
           >
-            <Globe size={14} /> {lang === "ja" ? "ID" : "JA"}
+            <Globe
+              size={scrolled ? 14 : 16}
+              style={{ transition: "all 0.4s ease" }}
+            />{" "}
+            {lang === "ja" ? "ID" : "JA"}
           </button>
 
-          <a
-            href="#contact"
-            style={{
-              background: C.teal,
-              color: "#fff",
-              padding: "10px 22px",
-              borderRadius: 8,
-              fontSize: 14,
-              fontWeight: 600,
-              textDecoration: "none",
-              letterSpacing: "0.3px",
-              transition: "all 0.2s",
-              display: "flex",
-              alignItems: "center",
-              gap: 6,
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = C.tealLight;
-              e.currentTarget.style.transform = "translateY(-1px)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = C.teal;
-              e.currentTarget.style.transform = "translateY(0)";
-            }}
-          >
-            {t("nav.contact")} <ArrowRight size={14} />
-          </a>
           <button
             onClick={() => setOpen(!open)}
             style={{
@@ -182,10 +186,11 @@ export default function Navbar() {
             }}
             className="menu-btn"
           >
-            {open ? <X size={22} /> : <Menu size={22} />}
+            {open ? <X size={32} /> : <Menu size={32} />}
           </button>
         </div>
       </div>
+
       {/* Mobile menu */}
       {open && (
         <div
@@ -193,6 +198,7 @@ export default function Navbar() {
             background: C.navy,
             borderTop: `1px solid rgba(255,255,255,0.08)`,
             padding: "1rem 1.5rem",
+            paddingBottom: "2rem",
           }}
         >
           {links.map((l) => (
@@ -202,36 +208,23 @@ export default function Navbar() {
               onClick={() => setOpen(false)}
               style={{
                 display: "block",
-                padding: "12px 0",
-                color: "rgba(255,255,255,0.85)",
+                padding: "16px 0",
+                color: "rgba(255,255,255,0.9)",
                 textDecoration: "none",
-                fontSize: 15,
+                fontSize: 16,
+                fontWeight: 500,
                 borderBottom: `1px solid rgba(255,255,255,0.06)`,
               }}
             >
               {l.label}
             </a>
           ))}
-          <a
-            href="#contact"
-            style={{
-              display: "block",
-              marginTop: 16,
-              textAlign: "center",
-              background: C.teal,
-              color: "#fff",
-              padding: "12px",
-              borderRadius: 8,
-              textDecoration: "none",
-              fontWeight: 600,
-            }}
-          >
-            {t("nav.contact")}
-          </a>
+          {/* Tombol Contact di mobile menu juga sudah dihapus dari sini */}
         </div>
       )}
       <style>{`
-        @media (max-width: 768px) {
+        /* Menampilkan menu burger sedikit lebih awal di tablet untuk menghindari navbar bertumpuk */
+        @media (max-width: 992px) {
           .nav-links { display: none !important; }
           .menu-btn { display: flex !important; }
         }

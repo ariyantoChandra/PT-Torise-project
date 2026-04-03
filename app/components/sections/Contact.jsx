@@ -1,134 +1,156 @@
 "use client";
-import { useState } from "react";
-import { Phone, Mail, ArrowRight } from "lucide-react";
-import Reveal from "../ui/Reveal"; // Pastikan path ini benar
-import { Button } from "@/components/ui/button"; // Import shadcn Button
-import { Input } from "@/components/ui/input"; // Import shadcn Input
-import { Textarea } from "@/components/ui/textarea"; // Import shadcn Textarea
+import Image from "next/image";
+import { ArrowRight } from "lucide-react";
+import Reveal from "../ui/Reveal";
+import { useLanguage } from "../../../lib/i18n/LanguageContext";
+
+// --- SVG Ikon FB, IG, dan WhatsApp ---
+const FacebookIcon = ({ size = 24 }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+  </svg>
+);
+const InstagramIcon = ({ size = 24 }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+  </svg>
+);
+const WhatsAppIcon = ({ size = 24, className = "" }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    width={size}
+    height={size}
+    viewBox="0 0 24 24"
+    fill="currentColor"
+    className={className}
+  >
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" />
+  </svg>
+);
+// ----------------------------------------
 
 export default function Contact() {
-  const [form, setForm] = useState({
-    name: "",
-    email: "",
-    company: "",
-    message: "",
-  });
-  const [sent, setSent] = useState(false);
-  const handleSubmit = () => {
-    setSent(true);
-  };
+  const { lang } = useLanguage();
+  const isJp = lang === "ja";
+
+  // GANTI nomor ini dengan nomor WhatsApp aktif perusahaanmu
+  const phoneNumber = "6281367809199";
+  const waLink = `https://wa.me/${phoneNumber}`;
 
   return (
-    <section id="contact" className="bg-white py-24 px-6">
+    <section
+      id="contact"
+      className="bg-white py-24 px-6 border-t border-slate-100"
+    >
       <div className="max-w-6xl mx-auto">
-        <Reveal>
-          <div className="text-center mb-14">
-            <div className="text-xs tracking-widest uppercase text-teal-600 font-bold mb-3">
-              Contact / お問い合わせ
-            </div>
-            <h2 className="font-serif text-3xl md:text-4xl text-slate-900 font-bold m-0">
-              まずはお気軽にご相談ください
-            </h2>
-          </div>
-        </Reveal>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          {/* Phone Card */}
-          <Reveal delay={100}>
-            <div className="bg-slate-900 rounded-3xl p-10 h-full flex flex-col justify-between relative overflow-hidden">
-              <div className="absolute -bottom-10 -right-10 w-48 h-48 rounded-full bg-teal-600/10" />
-              <div>
-                <div className="w-14 h-14 rounded-2xl bg-teal-600/20 flex items-center justify-center mb-6">
-                  <Phone size={26} className="text-teal-400" />
-                </div>
-                <h3 className="text-xl font-bold text-white mb-2">
-                  お電話でのご相談
-                </h3>
-                <p className="text-sm text-white/60 leading-relaxed mb-8">
-                  専任スタッフが日本語・多言語でご対応します。まずはお気軽にお電話ください。
-                </p>
-                <div className="text-3xl font-extrabold text-teal-400 tracking-tight mb-2">
-                  0120-XXX-XXX
-                </div>
-                <div className="text-sm text-white/50">
-                  平日 9:00〜18:00（土日祝は除く）
-                </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          {/* SISI KIRI: Teks, Social Media & WA Card */}
+          <div className="flex flex-col h-full justify-center">
+            <Reveal>
+              <div className="text-xs tracking-widest uppercase text-teal-600 font-bold mb-3">
+                Contact / お問い合わせ
               </div>
-              <Button
-                asChild
-                className="mt-8 bg-teal-600 hover:bg-teal-500 text-white font-bold h-12 w-full md:w-auto"
-              >
-                <a href="tel:0120XXXXXX">
-                  <Phone size={17} className="mr-2" /> 今すぐ電話する
-                </a>
-              </Button>
-            </div>
-          </Reveal>
-
-          {/* Web form card menggunakan shadcn */}
-          <Reveal delay={200}>
-            <div className="bg-slate-50 rounded-3xl p-10 border border-slate-200">
-              <div className="w-14 h-14 rounded-2xl bg-teal-100 flex items-center justify-center mb-6">
-                <Mail size={26} className="text-teal-600" />
-              </div>
-              <h3 className="text-xl font-bold text-slate-900 mb-2">
-                Webフォームからご相談
-              </h3>
-              <p className="text-sm text-slate-600 mb-6">
-                24時間受付。1営業日以内にご返信いたします。
+              <h2 className="font-serif text-3xl md:text-4xl text-slate-900 font-bold mb-6">
+                {isJp ? "まずはお気軽にご相談ください" : "Silakan Hubungi Kami"}
+              </h2>
+              <p className="text-slate-600 mb-8 leading-relaxed max-w-md">
+                {isJp
+                  ? "お急ぎの場合はSNSやWhatsAppからもご連絡いただけます。専任スタッフが丁寧に対応いたします。"
+                  : "Untuk pertanyaan lebih lanjut, silakan hubungi kami via WhatsApp atau Sosial Media. Kami siap melayani Anda."}
               </p>
+              {/* WA Card / Kartu Info WhatsApp */}
+              <Reveal delay={150}>
+                <div className="bg-slate-900 rounded-3xl p-8 relative overflow-hidden shadow-lg border border-slate-800 max-w-md">
+                  <div className="absolute -bottom-10 -right-10 w-40 h-40 rounded-full bg-[#25D366]/10" />
 
-              {sent ? (
-                <div className="text-center p-8 bg-teal-50 rounded-xl">
-                  <div className="text-3xl mb-2">✓</div>
-                  <div className="font-bold text-slate-900 mb-1">
-                    送信が完了しました！
+                  <div className="w-12 h-12 rounded-xl bg-[#25D366]/20 flex items-center justify-center mb-5">
+                    <WhatsAppIcon size={28} className="text-[#25D366]" />
                   </div>
-                  <div className="text-sm text-slate-600">
-                    1営業日以内にご連絡いたします。
+
+                  <h3 className="text-xl font-bold text-white mb-2">
+                    {isJp ? "WhatsAppで相談する" : "Konsultasi via WhatsApp"}
+                  </h3>
+                  <p className="text-sm text-white/60 mb-5">
+                    {isJp
+                      ? "日本語・インドネシア語対応"
+                      : "Melayani Bahasa Indonesia & Jepang"}
+                  </p>
+
+                  <div className="text-2xl font-extrabold text-[#25D366] tracking-tight mb-1">
+                    +62 8136-7809-199
                   </div>
-                </div>
-              ) : (
-                <div className="flex flex-col gap-4">
-                  <Input
-                    placeholder="お名前 / Name"
-                    value={form.name}
-                    onChange={(e) => setForm({ ...form, name: e.target.value })}
-                    className="bg-white h-12"
-                  />
-                  <Input
-                    placeholder="メールアドレス / Email"
-                    type="email"
-                    value={form.email}
-                    onChange={(e) =>
-                      setForm({ ...form, email: e.target.value })
-                    }
-                    className="bg-white h-12"
-                  />
-                  <Input
-                    placeholder="会社名 / Company"
-                    value={form.company}
-                    onChange={(e) =>
-                      setForm({ ...form, company: e.target.value })
-                    }
-                    className="bg-white h-12"
-                  />
-                  <Textarea
-                    placeholder="お問い合わせ内容 / Message"
-                    value={form.message}
-                    onChange={(e) =>
-                      setForm({ ...form, message: e.target.value })
-                    }
-                    className="bg-white min-h-[120px] resize-y"
-                  />
-                  <Button
-                    onClick={handleSubmit}
-                    className="bg-teal-600 hover:bg-teal-500 text-white font-bold h-12 mt-2"
+                  <div className="text-xs text-white/50 mb-6">
+                    {isJp
+                      ? "平日 9:00〜18:00（土日祝は除く）"
+                      : "Senin - Jumat | 09:00 - 18:00"}
+                  </div>
+
+                  <a
+                    href={waLink}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="bg-[#25D366] hover:bg-[#20bd5a] text-slate-900 font-bold h-12 rounded-xl flex items-center justify-center gap-2 transition-colors w-max px-6"
                   >
-                    送信する <ArrowRight size={16} className="ml-2" />
-                  </Button>
+                    {isJp ? "WhatsAppを開く" : "Buka WhatsApp"}{" "}
+                    <ArrowRight size={16} />
+                  </a>
                 </div>
-              )}
+              </Reveal>
+
+              {/* Tautan Media Sosial */}
+              <div
+                className="flex flex-wrap gap-4 mb-10 mt-10
+"
+              >
+                <a
+                  href="https://instagram.com/pt.toriseindonesiaglobal"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-2 bg-slate-50 border border-slate-200 text-slate-700 px-4 py-2 rounded-xl hover:text-teal-600 hover:border-teal-200 transition-all font-medium text-sm"
+                >
+                  <InstagramIcon size={18} /> pt.toriseindonesiaglobal
+                </a>
+                <a
+                  href="https://facebook.com/pt.toriseindonesiaglobal"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-2 bg-slate-50 border border-slate-200 text-slate-700 px-4 py-2 rounded-xl hover:text-teal-600 hover:border-teal-200 transition-all font-medium text-sm"
+                >
+                  <FacebookIcon size={18} /> pt.toriseindonesiaglobal
+                </a>
+              </div>
+            </Reveal>
+          </div>
+
+          {/* SISI KANAN: Gambar Placeholder */}
+          <Reveal delay={250} className="h-full">
+            <div className="w-full h-full min-h-[400px] lg:min-h-[500px] bg-slate-100 rounded-[32px] overflow-hidden relative border border-slate-200 flex items-center justify-center shadow-inner">
+              {/* Nanti ganti tag <span> ini dengan <Image src="/gambar-pilihanmu.jpg" fill className="object-cover" alt="Contact" /> */}
+              <span className="text-slate-400 font-medium tracking-wide">
+                [ Image Placeholder ]
+              </span>
             </div>
           </Reveal>
         </div>
