@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
-import { Menu, X, Globe } from "lucide-react"; // ArrowRight dihapus karena sudah tidak dipakai
+import Link from "next/link";
+import { Menu, X, Globe } from "lucide-react";
 import { C } from "../../../lib/colors";
 import { useLanguage } from "../../../lib/i18n/LanguageContext";
 
@@ -15,12 +16,12 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", h);
   }, []);
 
-  // Update href menggunakan absolute path agar aman dipakai di semua halaman
   const links = [
-    { label: t("nav.company"), href: "../company" },
+    { label: t("nav.company"), href: "/company" },
     { label: t("nav.merit"), href: "/#merit" },
     { label: t("nav.flow"), href: "/#flow" },
-    { label: t("nav.contact"), href: "/#contact" },
+    { label: t("nav.system"), href: "/system" },
+    { label: t("nav.gallery"), href: "/gallery" },
   ];
 
   // Efek shrink (mengecil saat scroll)
@@ -60,7 +61,7 @@ export default function Navbar() {
         }}
       >
         {/* Logo */}
-        <a
+        <Link
           href="/"
           style={{
             display: "flex",
@@ -91,7 +92,7 @@ export default function Navbar() {
                 transition: "all 0.4s ease",
               }}
             >
-              Torise Japan
+              Torise Indonesia
             </div>
             <div
               style={{
@@ -108,7 +109,7 @@ export default function Navbar() {
               {t("nav.support")}
             </div>
           </div>
-        </a>
+        </Link>
 
         {/* Desktop links */}
         <div
@@ -145,7 +146,6 @@ export default function Navbar() {
 
         {/* Switcher Bahasa & Menu Burger */}
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          {/* TOMBOL SWITCHER BAHASA */}
           <button
             onClick={() => setLang(lang === "ja" ? "id" : "ja")}
             style={{
@@ -219,11 +219,9 @@ export default function Navbar() {
               {l.label}
             </a>
           ))}
-          {/* Tombol Contact di mobile menu juga sudah dihapus dari sini */}
         </div>
       )}
       <style>{`
-        /* Menampilkan menu burger sedikit lebih awal di tablet untuk menghindari navbar bertumpuk */
         @media (max-width: 992px) {
           .nav-links { display: none !important; }
           .menu-btn { display: flex !important; }

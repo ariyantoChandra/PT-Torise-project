@@ -2,30 +2,11 @@
 import { ChevronRight } from "lucide-react";
 import { C } from "../../../lib/colors";
 import Reveal from "../ui/Reveal";
+import { useLanguage } from "../../../lib/i18n/LanguageContext";
 
 export default function NewsTicker() {
-  const news = [
-    {
-      date: "2025.06.01",
-      text: "新しい特定技能2号の受け入れ対象業種が拡大されました。",
-    },
-    {
-      date: "2025.05.20",
-      text: "ベトナム・インドネシア向け日本語研修プログラムを強化しました。",
-    },
-    {
-      date: "2025.04.15",
-      text: "東京・大阪・名古屋にサポートセンターを新設しました。",
-    },
-    {
-      date: "2025.03.30",
-      text: "在留資格申請のオンライン対応を全国に拡大しました。",
-    },
-    {
-      date: "2025.02.10",
-      text: "外国人雇用支援セミナーを無料開催します（毎月第2木曜日）。",
-    },
-  ];
+  const { t } = useLanguage();
+  const newsItems = t("news.items") || [];
 
   return (
     <section
@@ -64,16 +45,17 @@ export default function NewsTicker() {
                   color: C.navy,
                 }}
               >
-                最新情報
+                {t("news.title")}
               </span>
             </div>
             <span style={{ fontSize: 13, color: C.gray400 }}>
-              / Information & News
+              {t("news.subtitle")}
             </span>
           </div>
         </Reveal>
+
         <div>
-          {news.map((item, i) => (
+          {newsItems.map((item, i) => (
             <Reveal key={i} delay={i * 60}>
               <div
                 style={{

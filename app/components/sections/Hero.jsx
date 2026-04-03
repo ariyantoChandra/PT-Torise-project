@@ -1,18 +1,11 @@
-"use client"; // Jangan lupa tambahkan ini karena kita pakai hooks context
-import {
-  ArrowRight,
-  Users,
-  Award,
-  Globe,
-  Briefcase,
-  HeartHandshake,
-} from "lucide-react";
+"use client";
+import { ArrowRight } from "lucide-react";
 import { C } from "../../../lib/colors";
 import Reveal from "../ui/Reveal";
-import { useLanguage } from "../../../lib/i18n/LanguageContext"; // Import fitur bahasa
+import { useLanguage } from "../../../lib/i18n/LanguageContext";
 
 export default function Hero() {
-  const { t } = useLanguage(); // Gunakan fungsi t
+  const { t } = useLanguage();
 
   return (
     <section
@@ -105,6 +98,7 @@ export default function Hero() {
                 borderRadius: 100,
                 padding: "6px 16px",
                 marginBottom: "1.5rem",
+                marginTop: "20px",
               }}
             >
               <div
@@ -221,67 +215,23 @@ export default function Hero() {
               </a>
             </div>
           </Reveal>
-          {/* Stats */}
-          <Reveal delay={550}>
-            <div
-              style={{
-                display: "flex",
-                gap: "2rem",
-                marginTop: "3rem",
-                paddingTop: "2rem",
-                borderTop: "1px solid rgba(255,255,255,0.1)",
-              }}
-            >
-              {[
-                ["2,500+", t("hero.stats.placements")],
-                ["98%", t("hero.stats.satisfaction")],
-                ["15+", t("hero.stats.languages")],
-              ].map(([num, label]) => (
-                <div key={label}>
-                  <div
-                    style={{
-                      fontSize: "1.8rem",
-                      fontWeight: 800,
-                      color: C.tealLight,
-                      lineHeight: 1,
-                    }}
-                  >
-                    {num}
-                  </div>
-                  <div
-                    style={{
-                      fontSize: 13,
-                      color: "rgba(255,255,255,0.5)",
-                      marginTop: 4,
-                    }}
-                  >
-                    {label}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Reveal>
         </div>
 
         {/* Right — Bento grid (Disederhanakan untuk contoh) */}
         <Reveal delay={300} className="hero-bento">
-          {/* ... Kode Bento grid tetap sama seperti sebelumnya ... */}
-          {/* Bisa diterjemahkan bertahap dengan menambahkannya di ja.js dan id.js nantinya */}
-          <div
+          <img
+            src="/homepage.jpg" // Pastikan file homepage.png sudah ada di folder /public/
+            alt="Torise Indonesia Homepage Illustration"
             style={{
               width: "100%",
-              height: "400px",
-              background: "rgba(255,255,255,0.05)",
-              borderRadius: 16,
-              border: "1px solid rgba(255,255,255,0.1)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "rgba(255,255,255,0.5)",
+              height: "100%", // Mengambil tinggi penuh parent hero-bento
+              maxHeight: "400px", // Membatasi tinggi maksimum agar sama dengan placeholder sebelumnya
+              objectFit: "cover", // Memastikan gambar menutupi area tanpa distorsi
+              borderRadius: 16, // Sudut melengkung agar terlihat "bento-style"
+              border: "1px solid rgba(255,255,255,0.1)", // Border tipis untuk detail
+              display: "block", // Menghindari spasi tak terduga
             }}
-          >
-            [Illustration/Bento UI Here]
-          </div>
+          />
         </Reveal>
       </div>
     </section>

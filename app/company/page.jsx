@@ -1,20 +1,24 @@
 "use client";
-// Menggunakan ../ karena harus keluar dari folder 'company' untuk menemukan 'components'
+import { MapPin, Circle } from "lucide-react";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
+import Contact from "../components/sections/Contact";
 import Reveal from "../components/ui/Reveal";
-
-// Menggunakan ../../ karena harus keluar dua kali (company -> app -> root) untuk menemukan 'lib'
 import { useLanguage } from "../../lib/i18n/LanguageContext";
 
 export default function CompanyPage() {
   const { t } = useLanguage();
 
+  // URL ini dibentuk agar Maps langsung melakukan pencarian (q=...) ke alamat spesifik.
+  const mapAddress =
+    "Blok KK-1.60, Jl. Taman Surya 5 No.RT.7, RT.7/RW.19, Pegadungan, Kec. Kalideres, Kota Jakarta Barat, Daerah Khusus Ibukota Jakarta 11830";
+  const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(mapAddress)}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+
   return (
     <div className="font-sans m-0 p-0">
       <Navbar />
 
-      {/* Hero Banner Company */}
+      {/* --- HERO BANNER --- */}
       <section className="bg-slate-900 pt-36 pb-20 text-center relative overflow-hidden">
         <div className="absolute -top-12 -right-12 w-72 h-72 rounded-full bg-teal-500/15 blur-3xl" />
         <Reveal>
@@ -27,41 +31,40 @@ export default function CompanyPage() {
         </Reveal>
       </section>
 
-      {/* Message Section */}
+      {/* --- STATEMENT MESSAGE --- */}
       <section className="bg-white py-16 md:py-24 px-6">
-        <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-[1fr_1.2fr] gap-10 md:gap-16 items-center">
-            <Reveal delay={100}>
-              <div className="w-full aspect-square md:aspect-[3/4] bg-slate-100 rounded-3xl border border-slate-200 flex items-center justify-center shadow-inner">
-                <span className="text-slate-400 text-sm font-medium">
-                  [ Foto CEO ]
-                </span>
-              </div>
-            </Reveal>
-
-            <Reveal delay={200}>
-              <div>
-                <h3 className="text-xl md:text-2xl text-slate-900 font-bold leading-relaxed mb-6 border-l-4 border-teal-500 pl-4">
-                  {t("company.message.quote")}
-                </h3>
-                <p className="text-slate-600 leading-loose mb-10">
-                  {t("company.message.p1")}
-                  <br />
-                  <br />
-                  {t("company.message.p2")}
-                </p>
-                <div className="text-right text-lg font-bold text-slate-900">
-                  {t("company.message.name")}
-                </div>
-              </div>
-            </Reveal>
-          </div>
+        <div className="max-w-4xl mx-auto text-left md:text-center">
+          <Reveal delay={100}>
+            <p className="text-slate-700 leading-loose mb-6 text-base md:text-lg">
+              {t("company.message.p1")}
+            </p>
+            <p className="text-slate-700 leading-loose mb-6 text-base md:text-lg">
+              {t("company.message.p2")}
+            </p>
+            <p className="text-slate-700 leading-loose mb-6 text-base md:text-lg">
+              {t("company.message.p3")}
+            </p>
+            <p className="text-slate-700 leading-loose text-base md:text-lg">
+              {t("company.message.p4")}
+            </p>
+          </Reveal>
         </div>
       </section>
 
-      {/* Profile Table Section */}
+      {/* --- COMPANY PROFILE TABLE --- */}
       <section className="bg-slate-50 py-16 md:py-24 px-6 border-t border-slate-200">
         <div className="max-w-4xl mx-auto">
+          <Reveal>
+            <div className="text-center mb-10 md:mb-14">
+              <div className="text-xs tracking-[3px] uppercase text-teal-600 font-bold mb-2">
+                {t("company.profile.en")}
+              </div>
+              <h2 className="text-3xl text-slate-900 font-bold m-0">
+                {t("company.profile.jp")}
+              </h2>
+            </div>
+          </Reveal>
+
           <Reveal delay={100}>
             <div className="bg-white rounded-2xl overflow-hidden border border-slate-200 shadow-sm">
               {t("company.profile.table").map((row, index) => (
@@ -82,6 +85,124 @@ export default function CompanyPage() {
         </div>
       </section>
 
+      {/* --- KONTEN BISNIS --- */}
+      <section className="bg-white py-16 md:py-24 px-6 border-t border-slate-200">
+        <div className="max-w-6xl mx-auto">
+          <Reveal>
+            <div className="mb-12">
+              <h2 className="text-3xl text-teal-700 font-light m-0">
+                {t("company.business.title")}
+              </h2>
+            </div>
+          </Reveal>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20">
+            {/* Kolom Kiri */}
+            <Reveal delay={100}>
+              <div>
+                <h3 className="font-bold text-slate-900 mb-6 text-base leading-relaxed">
+                  {t("company.business.group1.title")}
+                </h3>
+                <ul className="space-y-4">
+                  {t("company.business.group1.items").map((item, index) => (
+                    <li key={index} className="flex items-start gap-3">
+                      <Circle className="text-teal-500 fill-teal-500 w-2 h-2 mt-2 shrink-0" />
+                      <span className="text-slate-600 text-sm leading-relaxed">
+                        {item}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Reveal>
+
+            {/* Kolom Kanan */}
+            <Reveal delay={200}>
+              <div>
+                <h3 className="font-bold text-slate-900 mb-6 text-base leading-relaxed">
+                  {t("company.business.group2.title")}
+                </h3>
+                <ul className="space-y-4">
+                  {t("company.business.group2.items").map((item, index) => (
+                    <li key={index} className="flex items-start gap-3">
+                      <Circle className="text-teal-500 fill-teal-500 w-2 h-2 mt-2 shrink-0" />
+                      <span className="text-slate-600 text-sm leading-relaxed">
+                        {item}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* --- ACCESS (PETA LOKASI) --- */}
+      <section className="bg-slate-50 py-16 md:py-24 px-6 border-t border-slate-200">
+        <div className="max-w-5xl mx-auto">
+          <Reveal>
+            <div className="text-center mb-10 md:mb-14">
+              <div className="text-xs tracking-[3px] uppercase text-teal-600 font-bold mb-2">
+                {t("company.access.en")}
+              </div>
+              <h2 className="text-3xl text-slate-900 font-bold m-0">
+                {t("company.access.jp")}
+              </h2>
+            </div>
+          </Reveal>
+
+          <Reveal delay={100}>
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center bg-white rounded-3xl p-6 md:p-10 border border-slate-200 shadow-sm">
+              {/* GOOGLE MAPS IFRAME */}
+              <div className="w-full aspect-video md:aspect-[16/10] bg-slate-200 rounded-2xl border border-slate-300 flex items-center justify-center overflow-hidden relative">
+                <iframe
+                  width="100%"
+                  height="100%"
+                  frameBorder="0"
+                  scrolling="no"
+                  marginHeight="0"
+                  marginWidth="0"
+                  src={mapSrc}
+                  className="absolute inset-0 w-full h-full"
+                ></iframe>
+              </div>
+
+              {/* ALAMAT TEKS */}
+              <div className="flex flex-col gap-6 p-2 md:p-4">
+                <div>
+                  <h3 className="font-bold text-slate-900 mb-3 flex items-center gap-2 text-lg">
+                    <MapPin size={22} className="text-teal-600" />
+                    Address
+                  </h3>
+                  <p className="text-slate-600 leading-relaxed whitespace-pre-line">
+                    {t("company.access.address")}
+                  </p>
+                </div>
+                <div>
+                  <h3 className="font-bold text-slate-900 mb-2 text-lg">
+                    Kawasan
+                  </h3>
+                  <p className="text-slate-600 leading-relaxed whitespace-pre-line">
+                    {t("company.access.station")}
+                  </p>
+                </div>
+                <a
+                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapAddress)}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-teal-600 font-bold hover:text-teal-700 transition-colors w-max mt-2 border-b-2 border-teal-600 pb-1"
+                >
+                  {t("company.access.mapBtn")}
+                </a>
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* --- CONTACT & FOOTER --- */}
+      <Contact />
       <Footer />
     </div>
   );

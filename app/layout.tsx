@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Torise Japan",
+  title: "Torise Indonesia Global - Employment Support",
   description: "Employment Support",
 };
 

@@ -4,8 +4,7 @@ import { ArrowRight } from "lucide-react";
 import Reveal from "../ui/Reveal";
 import { useLanguage } from "../../../lib/i18n/LanguageContext";
 
-// --- SVG Ikon FB, IG, dan WhatsApp ---
-const FacebookIcon = ({ size = 24 }) => (
+const FacebookIcon = ({ size = 24, className = "" }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
@@ -16,11 +15,12 @@ const FacebookIcon = ({ size = 24 }) => (
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
+    className={className}
   >
     <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
   </svg>
 );
-const InstagramIcon = ({ size = 24 }) => (
+const InstagramIcon = ({ size = 24, className = "" }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     width={size}
@@ -31,6 +31,7 @@ const InstagramIcon = ({ size = 24 }) => (
     strokeWidth="2"
     strokeLinecap="round"
     strokeLinejoin="round"
+    className={className}
   >
     <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
     <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
@@ -52,8 +53,7 @@ const WhatsAppIcon = ({ size = 24, className = "" }) => (
 // ----------------------------------------
 
 export default function Contact() {
-  const { lang } = useLanguage();
-  const isJp = lang === "ja";
+  const { t } = useLanguage();
 
   // GANTI nomor ini dengan nomor WhatsApp aktif perusahaanmu
   const phoneNumber = "6281367809199";
@@ -70,17 +70,14 @@ export default function Contact() {
           <div className="flex flex-col h-full justify-center">
             <Reveal>
               <div className="text-xs tracking-widest uppercase text-teal-600 font-bold mb-3">
-                Contact / お問い合わせ
+                {t("contact.tag")}
               </div>
               <h2 className="font-serif text-3xl md:text-4xl text-slate-900 font-bold mb-6">
-                {isJp ? "まずはお気軽にご相談ください" : "Silakan Hubungi Kami"}
+                {t("contact.title")}
               </h2>
               <p className="text-slate-600 mb-8 leading-relaxed max-w-md">
-                {isJp
-                  ? "お急ぎの場合はSNSやWhatsAppからもご連絡いただけます。専任スタッフが丁寧に対応いたします。"
-                  : "Untuk pertanyaan lebih lanjut, silakan hubungi kami via WhatsApp atau Sosial Media. Kami siap melayani Anda."}
+                {t("contact.desc")}
               </p>
-              {/* WA Card / Kartu Info WhatsApp */}
               <Reveal delay={150}>
                 <div className="bg-slate-900 rounded-3xl p-8 relative overflow-hidden shadow-lg border border-slate-800 max-w-md">
                   <div className="absolute -bottom-10 -right-10 w-40 h-40 rounded-full bg-[#25D366]/10" />
@@ -90,67 +87,64 @@ export default function Contact() {
                   </div>
 
                   <h3 className="text-xl font-bold text-white mb-2">
-                    {isJp ? "WhatsAppで相談する" : "Konsultasi via WhatsApp"}
+                    {t("contact.waTitle")}
                   </h3>
                   <p className="text-sm text-white/60 mb-5">
-                    {isJp
-                      ? "日本語・インドネシア語対応"
-                      : "Melayani Bahasa Indonesia & Jepang"}
+                    {t("contact.waSub")}
                   </p>
 
                   <div className="text-2xl font-extrabold text-[#25D366] tracking-tight mb-1">
-                    +62 8136-7809-199
+                    +62 813-6780-9199
                   </div>
                   <div className="text-xs text-white/50 mb-6">
-                    {isJp
-                      ? "平日 9:00〜18:00（土日祝は除く）"
-                      : "Senin - Jumat | 09:00 - 18:00"}
+                    {t("contact.time")}
                   </div>
 
                   <a
                     href={waLink}
                     target="_blank"
                     rel="noreferrer"
-                    className="bg-[#25D366] hover:bg-[#20bd5a] text-slate-900 font-bold h-12 rounded-xl flex items-center justify-center gap-2 transition-colors w-max px-6"
+                    className="bg-[#25D366] hover:bg-[#20bd5a] text-slate-900 font-bold h-12 rounded-xl flex items-center justify-center gap-2 transition-colors w-max px-6 relative z-10"
                   >
-                    {isJp ? "WhatsAppを開く" : "Buka WhatsApp"}{" "}
-                    <ArrowRight size={16} />
+                    {t("contact.waBtn")} <ArrowRight size={16} />
                   </a>
                 </div>
               </Reveal>
 
-              {/* Tautan Media Sosial */}
-              <div
-                className="flex flex-wrap gap-4 mb-10 mt-10
-"
-              >
+              {/* Tautan Media Sosial Dipaksa 1 Baris */}
+              <div className="flex flex-row gap-2 sm:gap-4 mb-10 mt-10 w-full">
                 <a
                   href="https://instagram.com/pt.toriseindonesiaglobal"
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center gap-2 bg-slate-50 border border-slate-200 text-slate-700 px-4 py-2 rounded-xl hover:text-teal-600 hover:border-teal-200 transition-all font-medium text-sm"
+                  className="flex-1 flex flex-row items-center justify-center gap-1.5 sm:gap-2 bg-slate-50 border border-slate-200 text-slate-700 px-2 py-2.5 sm:px-4 sm:py-2.5 rounded-xl hover:text-teal-600 hover:border-teal-200 transition-all font-medium text-[10px] sm:text-sm overflow-hidden"
                 >
-                  <InstagramIcon size={18} /> pt.toriseindonesiaglobal
+                  <InstagramIcon size={18} className="shrink-0" />
+                  <span className="truncate">pt.toriseindonesiaglobal</span>
                 </a>
                 <a
                   href="https://facebook.com/pt.toriseindonesiaglobal"
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center gap-2 bg-slate-50 border border-slate-200 text-slate-700 px-4 py-2 rounded-xl hover:text-teal-600 hover:border-teal-200 transition-all font-medium text-sm"
+                  className="flex-1 flex flex-row items-center justify-center gap-1.5 sm:gap-2 bg-slate-50 border border-slate-200 text-slate-700 px-2 py-2.5 sm:px-4 sm:py-2.5 rounded-xl hover:text-teal-600 hover:border-teal-200 transition-all font-medium text-[10px] sm:text-sm overflow-hidden"
                 >
-                  <FacebookIcon size={18} /> pt.toriseindonesiaglobal
+                  <FacebookIcon size={18} className="shrink-0" />
+                  <span className="truncate">pt.toriseindonesiaglobal</span>
                 </a>
               </div>
             </Reveal>
+
+            {/* WA Card / Kartu Info WhatsApp */}
           </div>
 
           {/* SISI KANAN: Gambar Placeholder */}
-          <Reveal delay={250} className="h-full">
-            <div className="w-full h-full min-h-[400px] lg:min-h-[500px] bg-slate-100 rounded-[32px] overflow-hidden relative border border-slate-200 flex items-center justify-center shadow-inner">
-              {/* Nanti ganti tag <span> ini dengan <Image src="/gambar-pilihanmu.jpg" fill className="object-cover" alt="Contact" /> */}
-              <span className="text-slate-400 font-medium tracking-wide">
-                [ Image Placeholder ]
-              </span>
+          <Reveal delay={250} className="h-full mt-8 lg:mt-0">
+            <div className="w-full h-full min-h-[300px] lg:min-h-[500px] bg-slate-100 rounded-[32px] overflow-hidden relative border border-slate-200 flex items-center justify-center shadow-inner">
+              <img
+                src="/contact.jpg"
+                alt="Contact Us"
+                className="w-full h-full object-cover"
+              />
             </div>
           </Reveal>
         </div>

@@ -1,4 +1,5 @@
 "use client"; // Tambahkan ini karena kita pakai context
+import Link from "next/link";
 import { C } from "../../../lib/colors";
 import { MapPin } from "lucide-react";
 import { useLanguage } from "../../../lib/i18n/LanguageContext";
@@ -24,34 +25,36 @@ export default function Footer() {
           }}
           className="footer-grid"
         >
+          {/* --- BAGIAN KIRI (Logo & Info) --- */}
           <div>
             <div
               style={{
                 display: "flex",
                 alignItems: "center",
-                gap: 10,
-                marginBottom: "1rem",
+                gap: 12,
+                marginBottom: "1.25rem",
               }}
             >
-              <div
+              {/* Logo Gambar */}
+              <img
+                src="/logo-lpk-i.png"
+                alt="Torise Indonesia Logo"
                 style={{
-                  width: 36,
-                  height: 36,
+                  width: 42,
+                  height: 42,
                   borderRadius: 8,
-                  background: `linear-gradient(135deg, ${C.teal}, ${C.tealLight})`,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontWeight: 800,
-                  fontSize: 15,
+                  objectFit: "contain",
+                }}
+              />
+              <span
+                style={{
+                  fontWeight: 700,
+                  fontSize: 18,
                   color: "#fff",
-                  fontFamily: "serif",
+                  letterSpacing: "0.5px",
                 }}
               >
-                T
-              </div>
-              <span style={{ fontWeight: 700, fontSize: 16, color: "#fff" }}>
-                Torise Japan
+                Torise Indonesia
               </span>
             </div>
             <p
@@ -82,6 +85,8 @@ export default function Footer() {
               </span>
             </div>
           </div>
+
+          {/* --- BAGIAN TENGAH (Layanan) --- */}
           <div>
             <div
               style={{
@@ -95,10 +100,10 @@ export default function Footer() {
             >
               {t("footer.services")}
             </div>
-            {t("footer.serviceLinks").map((s) => (
-              <a
-                key={s}
-                href="#"
+            {t("footer.serviceLinks").map((link, index) => (
+              <Link
+                key={index}
+                href={link.href}
                 style={{
                   display: "block",
                   fontSize: 13,
@@ -107,11 +112,17 @@ export default function Footer() {
                   marginBottom: 8,
                   transition: "color 0.2s",
                 }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.color = "rgba(255,255,255,0.55)")
+                }
               >
-                {s}
-              </a>
+                {link.label}
+              </Link>
             ))}
           </div>
+
+          {/* --- BAGIAN KANAN (Perusahaan) --- */}
           <div>
             <div
               style={{
@@ -125,10 +136,10 @@ export default function Footer() {
             >
               {t("footer.company")}
             </div>
-            {t("footer.companyLinks").map((s) => (
-              <a
-                key={s}
-                href="#"
+            {t("footer.companyLinks").map((link, index) => (
+              <Link
+                key={index}
+                href={link.href}
                 style={{
                   display: "block",
                   fontSize: 13,
@@ -137,12 +148,18 @@ export default function Footer() {
                   marginBottom: 8,
                   transition: "color 0.2s",
                 }}
+                onMouseEnter={(e) => (e.currentTarget.style.color = "#fff")}
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.color = "rgba(255,255,255,0.55)")
+                }
               >
-                {s}
-              </a>
+                {link.label}
+              </Link>
             ))}
           </div>
         </div>
+
+        {/* --- BAGIAN BAWAH (Copyright) --- */}
         <div
           style={{
             paddingTop: "1.5rem",
