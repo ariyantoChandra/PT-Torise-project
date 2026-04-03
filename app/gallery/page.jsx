@@ -69,10 +69,11 @@ export default function GalleryPage() {
                       <div className="p-1">
                         {/* PERBAIKAN: Mengubah aspect-square menjadi aspect-video agar bentuknya persegi panjang landscape yang cantik */}
                         <div className="flex aspect-video items-center justify-center rounded-2xl bg-slate-200 border border-slate-300 shadow-sm overflow-hidden relative">
-                          {/* Nanti tag span ini diganti dengan <Image src={`/gallery-${index}.jpg`} fill className="object-cover" /> */}
-                          <span className="text-2xl font-bold text-slate-400">
-                            Image {index}
-                          </span>
+                          <img
+                            src={`/gallery/img_${index}.webp`}
+                            alt={`Gallery Torise ${index}`}
+                            className="absolute inset-0 w-full h-full object-cover"
+                          />
                         </div>
                       </div>
                     </CarouselItem>
