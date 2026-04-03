@@ -16,6 +16,7 @@ export default function Hero() {
         display: "flex",
         alignItems: "center",
         overflow: "hidden",
+        padding: "80px 0", // Menambah padding atas/bawah agar konten tidak terlalu mentok
       }}
     >
       {/* Background geometric shapes */}
@@ -84,9 +85,12 @@ export default function Hero() {
           gap: "3rem",
           alignItems: "center",
         }}
+        className="hero-grid" // Class untuk mobile grid
       >
-        {/* Left */}
-        <div>
+        {/* Kolom Kiri: Teks & Tombol */}
+        <div className="hero-content-col">
+          {" "}
+          {/* Class untuk mobile centering */}
           <Reveal delay={100}>
             <div
               style={{
@@ -155,12 +159,16 @@ export default function Hero() {
                 margin: "0 0 2.5rem",
                 maxWidth: 480,
               }}
+              className="hero-desc" // Class untuk mobile centering
             >
               {t("hero.desc")}
             </p>
           </Reveal>
           <Reveal delay={400}>
-            <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+            <div
+              style={{ display: "flex", gap: 14, flexWrap: "wrap" }}
+              className="hero-buttons" // Class untuk mobile centering
+            >
               <a
                 href="#contact"
                 style={{
@@ -217,23 +225,67 @@ export default function Hero() {
           </Reveal>
         </div>
 
-        {/* Right — Bento grid (Disederhanakan untuk contoh) */}
+        {/* Kolom Kanan: Bento grid / Image */}
         <Reveal delay={300} className="hero-bento">
+          {" "}
+          {/* Class untuk mobile grid item */}
           <img
-            src="/homepage.jpg" // Pastikan file homepage.png sudah ada di folder /public/
+            src="/homepage.jpg"
             alt="Torise Indonesia Homepage Illustration"
             style={{
               width: "100%",
-              height: "100%", // Mengambil tinggi penuh parent hero-bento
-              maxHeight: "400px", // Membatasi tinggi maksimum agar sama dengan placeholder sebelumnya
-              objectFit: "cover", // Memastikan gambar menutupi area tanpa distorsi
-              borderRadius: 16, // Sudut melengkung agar terlihat "bento-style"
-              border: "1px solid rgba(255,255,255,0.1)", // Border tipis untuk detail
-              display: "block", // Menghindari spasi tak terduga
+              height: "100%",
+              maxHeight: "400px",
+              objectFit: "cover",
+              borderRadius: 16,
+              border: "1px solid rgba(255,255,255,0.1)",
+              display: "block",
             }}
           />
         </Reveal>
       </div>
+
+      {/* --- CSS Respon Khusus Mobile --- */}
+      <style>{`
+        @media (max-width: 768px) { 
+          /* 1. Mengubah grid 2 kolom menjadi 1 kolom bertumpuk */
+          .hero-grid { 
+            grid-template-columns: 1fr !important; 
+            gap: 2rem !important;
+            text-align: center; /* Memusatkan semua teks di mobile */
+            padding-top: 80px !important; 
+          } 
+
+          /* 2. REMOVE THE SWAP - Let standard 1 -> 2 order place Text above Image */
+          /* Perintah 'order' dari codingan sebelumnya telah dihapus */
+
+          /* Adjust bento (image area) on mobile */
+          .hero-bento { 
+            width: 100%;
+            max-width: 350px; 
+            margin: 0 auto; /* Center horizontally in the grid cell */
+          }
+
+          /* Adjust content (text area) on mobile */
+          .hero-content-col { 
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* Center horizontally in the grid cell */
+          }
+
+          /* Center buttons in mobile */
+          .hero-buttons {
+            justify-content: center;
+          }
+
+          /* Center description in mobile and ensure auto margins for centering */
+          .hero-desc {
+            margin-left: auto !important;
+            margin-right: auto !important;
+          }
+        }
+      `}</style>
     </section>
   );
 }
