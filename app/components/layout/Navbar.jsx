@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { ArrowRight, Menu, X, Globe } from "lucide-react"; // Import Globe untuk icon bahasa
 import { C } from "../../../lib/colors";
 import { useLanguage } from "../../../lib/i18n/LanguageContext"; // Import fitur bahasa
@@ -15,9 +16,8 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", h);
   }, []);
 
-  // Menu sekarang menggunakan fungsi t() dari kamus
   const links = [
-    { label: t("nav.company"), en: "Company", href: "#about" },
+    { label: t("nav.company"), en: "Company", href: "../company" },
     { label: t("nav.merit"), en: "Merit", href: "#merit" },
     { label: t("nav.flow"), en: "Flow", href: "#flow" },
     { label: t("nav.pricing"), en: "Pricing", href: "#pricing" },
@@ -51,24 +51,14 @@ export default function Navbar() {
       >
         {/* Logo */}
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-          <div
-            style={{
-              width: 38,
-              height: 38,
-              borderRadius: 8,
-              background: `linear-gradient(135deg, ${C.teal}, ${C.tealLight})`,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontWeight: 800,
-              fontSize: 16,
-              color: "#fff",
-              fontFamily: "serif",
-              letterSpacing: "-0.5px",
-            }}
-          >
-            T
-          </div>
+          <Image 
+            src="/logo-lpk-i.png" 
+            alt="Torise Japan Logo" 
+            width={38} 
+            height={38} 
+            style={{ borderRadius: "8px", objectFit: "contain" }}
+          />
+          
           <div>
             <div
               style={{
