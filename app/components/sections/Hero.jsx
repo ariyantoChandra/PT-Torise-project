@@ -196,7 +196,7 @@ export default function Hero() {
                 {t("hero.consultBtn")} <ArrowRight size={16} />
               </a>
               <a
-                href="#about"
+                href="/company"
                 style={{
                   color: "rgba(255,255,255,0.82)",
                   padding: "14px 26px",
