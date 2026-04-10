@@ -19,7 +19,6 @@ export default function Navbar() {
   const links = [
     { label: t("nav.company"), href: "/company" },
     { label: t("nav.system"), href: "/system" },
-    { label: t("nav.merit"), href: "/merit" },
     { label: t("nav.flow"), href: "/flow" },
     { label: t("nav.gallery"), href: "/gallery" },
   ];

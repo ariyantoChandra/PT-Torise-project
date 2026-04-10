@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 // IMPORT PROVIDER (Sesuaikan path jika perlu, mundur 1 folder dari app)
 import { LanguageProvider } from "../lib/i18n/LanguageContext";
+import FloatingWhatsApp from "./components/ui/FloatingWhatsApp";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,7 +31,10 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         {/* BUNGKUS DENGAN PROVIDER */}
-        <LanguageProvider>{children}</LanguageProvider>
+        <LanguageProvider>
+          {children}
+          <FloatingWhatsApp />
+        </LanguageProvider>
       </body>
     </html>
   );

@@ -6,6 +6,7 @@ import NewsTicker from "./components/sections/NewsTicker";
 import Contact from "./components/sections/Contact";
 import Reveal from "./components/ui/Reveal";
 import { useLanguage } from "../lib/i18n/LanguageContext";
+import LogoCarousel from "./components/sections/LogoCarousel"; 
 
 export default function ToriseJapan() {
   const { t } = useLanguage();
@@ -20,6 +21,7 @@ export default function ToriseJapan() {
     >
       <Navbar />
       <Hero />
+      <LogoCarousel />
       <NewsTicker />
 
       {/* --- COMPANY MESSAGE SECTION (Background Gambar + Blur Navy, Rata Kiri) --- */}
