@@ -1,5 +1,5 @@
 "use client";
-import { MapPin, Circle } from "lucide-react";
+import { MapPin, Circle, Target, Flag, CheckCircle2 } from "lucide-react";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import Contact from "../components/sections/Contact";
@@ -31,7 +31,7 @@ export default function CompanyPage() {
         </Reveal>
       </section>
 
-      {/* --- STATEMENT MESSAGE --- */}
+      {/* --- 1. STATEMENT MESSAGE (Teks Pengenalan Baru) --- */}
       <section className="bg-white py-16 md:py-24 px-6">
         <div className="max-w-4xl mx-auto text-left md:text-center">
           <Reveal delay={100}>
@@ -44,15 +44,70 @@ export default function CompanyPage() {
             <p className="text-slate-700 leading-loose mb-6 text-base md:text-lg">
               {t("company.message.p3")}
             </p>
-            <p className="text-slate-700 leading-loose text-base md:text-lg">
+            <p className="text-slate-700 leading-loose text-base md:text-lg font-semibold text-teal-700">
               {t("company.message.p4")}
             </p>
           </Reveal>
         </div>
       </section>
 
-      {/* --- COMPANY PROFILE TABLE --- */}
+      {/* --- 2. VISION & MISSION BAGAN (Baru) --- */}
       <section className="bg-slate-50 py-16 md:py-24 px-6 border-t border-slate-200">
+        <div className="max-w-5xl mx-auto">
+          <Reveal>
+            <div className="text-center mb-12 md:mb-16">
+              <h2 className="text-3xl md:text-4xl text-slate-900 font-bold m-0 relative inline-block">
+                {t("company.visionMission.title")}
+                <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-16 h-1.5 bg-teal-500 rounded-full"></div>
+              </h2>
+            </div>
+          </Reveal>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+            {/* Card Visi */}
+            <Reveal delay={100} className="h-full">
+              <div className="bg-white rounded-3xl p-8 md:p-10 shadow-sm border border-slate-200 h-full relative overflow-hidden flex flex-col transition-all hover:shadow-md">
+                <div className="absolute -top-10 -right-10 w-48 h-48 bg-teal-500/10 rounded-full blur-3xl"></div>
+                <div className="w-14 h-14 bg-teal-50 rounded-2xl flex items-center justify-center mb-6 relative z-10">
+                  <Target className="w-8 h-8 text-teal-600" />
+                </div>
+                <h3 className="text-2xl font-bold text-slate-900 mb-4 relative z-10">
+                  {t("company.visionMission.vision.title")}
+                </h3>
+                <p className="text-slate-600 leading-relaxed text-base relative z-10">
+                  {t("company.visionMission.vision.desc")}
+                </p>
+              </div>
+            </Reveal>
+
+            {/* Card Misi */}
+            <Reveal delay={200} className="h-full">
+              <div className="bg-white rounded-3xl p-8 md:p-10 shadow-sm border border-slate-200 h-full relative overflow-hidden flex flex-col transition-all hover:shadow-md">
+                <div className="absolute -bottom-10 -right-10 w-48 h-48 bg-yellow-400/10 rounded-full blur-3xl"></div>
+                <div className="w-14 h-14 bg-yellow-50 rounded-2xl flex items-center justify-center mb-6 relative z-10">
+                  <Flag className="w-8 h-8 text-yellow-500" />
+                </div>
+                <h3 className="text-2xl font-bold text-slate-900 mb-6 relative z-10">
+                  {t("company.visionMission.mission.title")}
+                </h3>
+                <ul className="space-y-4 relative z-10">
+                  {t("company.visionMission.mission.items").map((item, idx) => (
+                    <li key={idx} className="flex items-start gap-4">
+                      <CheckCircle2 className="w-6 h-6 text-teal-500 shrink-0 mt-0.5" />
+                      <span className="text-slate-600 leading-relaxed text-base">
+                        {item}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* --- 3. COMPANY PROFILE TABLE --- */}
+      <section className="bg-white py-16 md:py-24 px-6 border-t border-slate-200">
         <div className="max-w-4xl mx-auto">
           <Reveal>
             <div className="text-center mb-10 md:mb-14">
@@ -85,8 +140,8 @@ export default function CompanyPage() {
         </div>
       </section>
 
-      {/* --- KONTEN BISNIS --- */}
-      <section className="bg-white py-16 md:py-24 px-6 border-t border-slate-200">
+      {/* --- 4. KONTEN BISNIS --- */}
+      <section className="bg-slate-50 py-16 md:py-24 px-6 border-t border-slate-200">
         <div className="max-w-6xl mx-auto">
           <Reveal>
             <div className="mb-12">
@@ -138,8 +193,8 @@ export default function CompanyPage() {
         </div>
       </section>
 
-      {/* --- ACCESS (PETA LOKASI) --- */}
-      <section className="bg-slate-50 py-16 md:py-24 px-6 border-t border-slate-200">
+      {/* --- 5. ACCESS (PETA LOKASI) --- */}
+      <section className="bg-white py-16 md:py-24 px-6 border-t border-slate-200">
         <div className="max-w-5xl mx-auto">
           <Reveal>
             <div className="text-center mb-10 md:mb-14">
@@ -153,7 +208,7 @@ export default function CompanyPage() {
           </Reveal>
 
           <Reveal delay={100}>
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center bg-white rounded-3xl p-6 md:p-10 border border-slate-200 shadow-sm">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center bg-slate-50 rounded-3xl p-6 md:p-10 border border-slate-200 shadow-sm">
               {/* GOOGLE MAPS IFRAME */}
               <div className="w-full aspect-video md:aspect-[16/10] bg-slate-200 rounded-2xl border border-slate-300 flex items-center justify-center overflow-hidden relative">
                 <iframe
@@ -188,7 +243,9 @@ export default function CompanyPage() {
                   </p>
                 </div>
                 <a
-                  href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapAddress)}`}
+                  href={`https://maps.google.com/maps?q=${encodeURIComponent(
+                    mapAddress,
+                  )}`}
                   target="_blank"
                   rel="noreferrer"
                   className="text-teal-600 font-bold hover:text-teal-700 transition-colors w-max mt-2 border-b-2 border-teal-600 pb-1"

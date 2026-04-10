@@ -56,7 +56,7 @@ export default function Contact() {
   const { t } = useLanguage();
 
   // GANTI nomor ini dengan nomor WhatsApp aktif perusahaanmu
-  const phoneNumber = "6281367809199";
+  const phoneNumber = "6281384554530";
   const waLink = `https://wa.me/${phoneNumber}`;
 
   return (
@@ -94,7 +94,7 @@ export default function Contact() {
                   </p>
 
                   <div className="text-2xl font-extrabold text-[#25D366] tracking-tight mb-1">
-                    +62 813-6780-9199
+                    +62 813-8455-4530
                   </div>
                   <div className="text-xs text-white/50 mb-6">
                     {t("contact.time")}
@@ -109,29 +109,7 @@ export default function Contact() {
                     {t("contact.waBtn")} <ArrowRight size={16} />
                   </a>
                 </div>
-              </Reveal>
-
-              {/* Tautan Media Sosial Dipaksa 1 Baris */}
-              <div className="flex flex-row gap-2 sm:gap-4 mb-10 mt-10 w-full">
-                <a
-                  href="https://instagram.com/pt.toriseindonesiaglobal"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex-1 flex flex-row items-center justify-center gap-1.5 sm:gap-2 bg-slate-50 border border-slate-200 text-slate-700 px-2 py-2.5 sm:px-4 sm:py-2.5 rounded-xl hover:text-teal-600 hover:border-teal-200 transition-all font-medium text-[10px] sm:text-sm overflow-hidden"
-                >
-                  <InstagramIcon size={18} className="shrink-0" />
-                  <span className="truncate">pt.toriseindonesiaglobal</span>
-                </a>
-                <a
-                  href="https://facebook.com/pt.toriseindonesiaglobal"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex-1 flex flex-row items-center justify-center gap-1.5 sm:gap-2 bg-slate-50 border border-slate-200 text-slate-700 px-2 py-2.5 sm:px-4 sm:py-2.5 rounded-xl hover:text-teal-600 hover:border-teal-200 transition-all font-medium text-[10px] sm:text-sm overflow-hidden"
-                >
-                  <FacebookIcon size={18} className="shrink-0" />
-                  <span className="truncate">pt.toriseindonesiaglobal</span>
-                </a>
-              </div>
+              </Reveal>   
             </Reveal>
 
             {/* WA Card / Kartu Info WhatsApp */}

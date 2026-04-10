@@ -1,4 +1,6 @@
 "use client";
+import { useState } from "react";
+import { ChevronDown } from "lucide-react";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import Contact from "../components/sections/Contact";
@@ -7,9 +9,16 @@ import { useLanguage } from "../../lib/i18n/LanguageContext";
 
 export default function FlowPage() {
   const { t } = useLanguage();
+  // State untuk melacak item mana yang terbuka (default: 0 agar tahap 1 langsung terbuka)
+  const [openStep, setOpenStep] = useState(0);
+
+  const toggleStep = (index) => {
+    // Jika ditekan item yang sama, maka ditutup (null). Jika tidak, buka item tersebut.
+    setOpenStep(openStep === index ? null : index);
+  };
 
   return (
-    <div className="font-sans m-0 p-0 bg-white">
+    <div className="font-sans m-0 p-0 bg-slate-50">
       <Navbar />
 
       {/* --- HERO BANNER --- */}
@@ -25,56 +34,83 @@ export default function FlowPage() {
         </Reveal>
       </section>
 
-      <main className="max-w-5xl mx-auto px-6 py-16 md:py-24">
-        {/* --- JUDUL HALAMAN --- */}
-        <Reveal>
-          <h2 className="text-2xl md:text-3xl lg:text-4xl font-light mb-16 text-[#68b5b2]">
-            {t("flowPage.title")}
-          </h2>
-        </Reveal>
+      <main className="max-w-4xl mx-auto px-6 py-16 md:py-24">
 
-        {/* --- DAFTAR ALUR LAYANAN --- */}
-        <div className="flex flex-col">
-          {t("flowPage.steps").map((step, index) => (
-            <Reveal key={index} delay={index * 50}>
-              <div className="flex flex-col">
-                {/* Konten Step */}
-                <div className="flex flex-col md:flex-row items-start gap-6 md:gap-10">
-                  {/* Kotak Nomor (Kiri) */}
-                  <div className="relative w-16 h-16 shrink-0 mt-1 mb-4 md:mb-0">
-                    {/* Kotak Outline Background (Efek Bayangan) */}
-                    <div className="absolute top-2 left-2 w-full h-full border-[1.5px] border-[#82c5c1] z-0"></div>
-                    {/* Kotak Warna Utama */}
-                    <div className="absolute top-0 left-0 w-full h-full bg-[#82c5c1] flex items-center justify-center z-10">
-                      <span className="text-white text-3xl md:text-4xl font-light">
+        {/* --- DAFTAR ALUR (ACCORDION / FAQ STYLE) --- */}
+        <div className="space-y-4">
+          {t("flowPage.steps").map((step, index) => {
+            const isOpen = openStep === index;
+
+            return (
+              <Reveal key={index} delay={index * 50}>
+                <div
+                  className={`bg-white border rounded-2xl overflow-hidden transition-all duration-300 shadow-sm ${
+                    isOpen
+                      ? "border-teal-500 shadow-md ring-1 ring-teal-500/20"
+                      : "border-slate-200 hover:border-teal-300"
+                  }`}
+                >
+                  {/* HEADER (TOMBOL KLIK) */}
+                  <button
+                    onClick={() => toggleStep(index)}
+                    className="w-full px-5 py-5 md:px-8 md:py-6 flex items-center justify-between text-left focus:outline-none group"
+                  >
+                    <div className="flex items-center gap-5 md:gap-6">
+                      {/* Nomor Tahapan */}
+                      <div
+                        className={`w-12 h-12 md:w-14 md:h-14 shrink-0 rounded-2xl flex items-center justify-center text-xl md:text-2xl font-bold transition-all duration-300 ${
+                          isOpen
+                            ? "bg-teal-600 text-white shadow-md scale-105"
+                            : "bg-teal-50 text-teal-600 group-hover:bg-teal-100 group-hover:scale-105"
+                        }`}
+                      >
                         {step.num}
-                      </span>
+                      </div>
+                      {/* Judul Tahapan */}
+                      <h3
+                        className={`text-lg md:text-xl font-bold transition-colors duration-300 ${
+                          isOpen
+                            ? "text-teal-700"
+                            : "text-slate-800 group-hover:text-teal-600"
+                        }`}
+                      >
+                        {step.title}
+                      </h3>
+                    </div>
+
+                    {/* Icon Panah (Chevron) */}
+                    <div
+                      className={`w-10 h-10 shrink-0 rounded-full flex items-center justify-center transition-all duration-300 ${
+                        isOpen
+                          ? "rotate-180 bg-teal-50 text-teal-600"
+                          : "bg-slate-50 text-slate-400 group-hover:bg-teal-50 group-hover:text-teal-600"
+                      }`}
+                    >
+                      <ChevronDown className="w-5 h-5 md:w-6 md:h-6" />
+                    </div>
+                  </button>
+
+                  {/* KONTEN DROPDOWN (ANIMASI TINGGI) */}
+                  <div
+                    className={`grid transition-all duration-300 ease-in-out ${
+                      isOpen
+                        ? "grid-rows-[1fr] opacity-100"
+                        : "grid-rows-[0fr] opacity-0"
+                    }`}
+                  >
+                    <div className="overflow-hidden">
+                      {/* Padding kiri disesuaikan dengan lebar box nomor + gap agar rata (14 * 4 = 56px + 24px gap = ~80px) */}
+                      <div className="pl-5 pr-5 pb-6 pt-1 md:pl-[104px] md:pr-8 md:pb-8">
+                        <p className="text-slate-600 text-sm md:text-base leading-relaxed whitespace-pre-line border-t border-slate-100 pt-4 md:border-none md:pt-0">
+                          {step.desc}
+                        </p>
+                      </div>
                     </div>
                   </div>
-
-                  {/* Teks Penjelasan (Kanan) */}
-                  <div className="flex-1">
-                    <h3 className="text-xl md:text-2xl font-bold text-slate-900 mb-4">
-                      {step.title}
-                    </h3>
-                    <p className="text-slate-800 text-sm md:text-base leading-relaxed whitespace-pre-line">
-                      {step.desc}
-                    </p>
-                  </div>
                 </div>
-
-                {/* Garis Pemisah dengan Panah (Hanya tampil jika bukan item terakhir) */}
-                {index < t("flowPage.steps").length - 1 && (
-                  <div className="py-10 md:py-14 relative flex justify-center">
-                    {/* Garis Horizontal */}
-                    <div className="absolute top-1/2 -translate-y-1/2 w-full h-px bg-[#bce3e1]"></div>
-                    {/* Notch/Panah ke bawah di tengah garis */}
-                    <div className="w-4 h-4 border-b border-r border-[#bce3e1] bg-white transform rotate-45 relative z-10"></div>
-                  </div>
-                )}
-              </div>
-            </Reveal>
-          ))}
+              </Reveal>
+            );
+          })}
         </div>
       </main>
 

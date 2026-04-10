@@ -18,9 +18,9 @@ export default function Navbar() {
 
   const links = [
     { label: t("nav.company"), href: "/company" },
-    { label: t("nav.system"), href: "/system" },
     { label: t("nav.flow"), href: "/flow" },
     { label: t("nav.gallery"), href: "/gallery" },
+    { label: t("nav.system"), href: "/system" },
   ];
 
   // Efek shrink (mengecil saat scroll)
