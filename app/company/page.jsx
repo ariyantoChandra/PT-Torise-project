@@ -1,5 +1,5 @@
 "use client";
-import { MapPin, Circle, Target, Flag, CheckCircle2 } from "lucide-react";
+import { MapPin, Target, Flag, CheckCircle2 } from "lucide-react";
 import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import Contact from "../components/sections/Contact";
@@ -31,7 +31,7 @@ export default function CompanyPage() {
         </Reveal>
       </section>
 
-      {/* --- 1. STATEMENT MESSAGE (Teks Pengenalan Baru) --- */}
+      {/* --- 1. STATEMENT MESSAGE --- */}
       <section className="bg-white py-16 md:py-24 px-6">
         <div className="max-w-4xl mx-auto text-left md:text-center">
           <Reveal delay={100}>
@@ -51,7 +51,7 @@ export default function CompanyPage() {
         </div>
       </section>
 
-      {/* --- 2. VISION & MISSION BAGAN (Baru) --- */}
+      {/* --- 2. VISION & MISSION BAGAN --- */}
       <section className="bg-slate-50 py-16 md:py-24 px-6 border-t border-slate-200">
         <div className="max-w-5xl mx-auto">
           <Reveal>
@@ -140,53 +140,89 @@ export default function CompanyPage() {
         </div>
       </section>
 
-      {/* --- 4. KONTEN BISNIS --- */}
+      {/* --- 4. KONTEN BISNIS (IMAGE GRID) --- */}
       <section className="bg-slate-50 py-16 md:py-24 px-6 border-t border-slate-200">
-        <div className="max-w-6xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <Reveal>
-            <div className="mb-12">
-              <h2 className="text-3xl text-teal-700 font-light m-0">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl text-slate-900 font-bold m-0 relative inline-block">
                 {t("company.business.title")}
+                <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-16 h-1.5 bg-teal-500 rounded-full"></div>
               </h2>
             </div>
           </Reveal>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 lg:gap-20">
-            {/* Kolom Kiri */}
+          <div className="space-y-16">
+            {/* --- SEKTOR 1: MANUFAKTUR & TEKNIS --- */}
             <Reveal delay={100}>
               <div>
-                <h3 className="font-bold text-slate-900 mb-6 text-base leading-relaxed">
+                <h3 className="font-bold text-slate-900 mb-8 text-xl md:text-2xl text-center md:text-left">
                   {t("company.business.group1.title")}
                 </h3>
-                <ul className="space-y-4">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 md:gap-6">
                   {t("company.business.group1.items").map((item, index) => (
-                    <li key={index} className="flex items-start gap-3">
-                      <Circle className="text-teal-500 fill-teal-500 w-2 h-2 mt-2 shrink-0" />
-                      <span className="text-slate-600 text-sm leading-relaxed">
-                        {item}
-                      </span>
-                    </li>
+                    <div
+                      key={index}
+                      className="relative group overflow-hidden rounded-2xl aspect-square md:aspect-[4/3] shadow-sm bg-slate-200"
+                    >
+                      {/* Gambar Latar */}
+                      <img
+                        src={`/jobs/m-${index + 1}.jpg`}
+                        alt={item}
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        onError={(e) => {
+                          e.currentTarget.src =
+                            "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=500&q=80";
+                        }}
+                      />
+                      {/* Overlay Gelap */}
+                      <div className="absolute inset-0 bg-slate-900/40 group-hover:bg-slate-900/60 transition-colors duration-300" />
+                      {/* Teks di Tengah */}
+                      <div className="absolute inset-0 flex items-center justify-center p-4 text-center">
+                        <span className="text-white font-bold text-sm md:text-base lg:text-lg tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                          {item}
+                        </span>
+                      </div>
+                    </div>
                   ))}
-                </ul>
+                </div>
               </div>
             </Reveal>
 
-            {/* Kolom Kanan */}
+            {/* --- SEKTOR 2: JASA, MAKANAN & AGRIKULTUR --- */}
             <Reveal delay={200}>
               <div>
-                <h3 className="font-bold text-slate-900 mb-6 text-base leading-relaxed">
+                <h3 className="font-bold text-slate-900 mb-8 text-xl md:text-2xl text-center md:text-left">
                   {t("company.business.group2.title")}
                 </h3>
-                <ul className="space-y-4">
+                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
                   {t("company.business.group2.items").map((item, index) => (
-                    <li key={index} className="flex items-start gap-3">
-                      <Circle className="text-teal-500 fill-teal-500 w-2 h-2 mt-2 shrink-0" />
-                      <span className="text-slate-600 text-sm leading-relaxed">
-                        {item}
-                      </span>
-                    </li>
+                    <div
+                      key={index}
+                      className="relative group overflow-hidden rounded-2xl aspect-[4/3] md:aspect-[16/9] shadow-sm bg-slate-200"
+                    >
+                      {/* Gambar Latar */}
+                      <img
+                        src={`/jobs/j-${index + 1}.jpg`}
+                        alt={item}
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        // Fallback image
+                        onError={(e) => {
+                          e.currentTarget.src =
+                            "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=500&q=80";
+                        }}
+                      />
+                      {/* Overlay Gelap */}
+                      <div className="absolute inset-0 bg-slate-900/40 group-hover:bg-slate-900/60 transition-colors duration-300" />
+                      {/* Teks di Tengah */}
+                      <div className="absolute inset-0 flex items-center justify-center p-4 text-center">
+                        <span className="text-white font-bold text-base md:text-lg lg:text-xl tracking-wide drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                          {item}
+                        </span>
+                      </div>
+                    </div>
                   ))}
-                </ul>
+                </div>
               </div>
             </Reveal>
           </div>
@@ -243,7 +279,7 @@ export default function CompanyPage() {
                   </p>
                 </div>
                 <a
-                  href={`https://maps.google.com/maps?q=${encodeURIComponent(
+                  href={`http://googleusercontent.com/maps.google.com/maps?q=${encodeURIComponent(
                     mapAddress,
                   )}`}
                   target="_blank"

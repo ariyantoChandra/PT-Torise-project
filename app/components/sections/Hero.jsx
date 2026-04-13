@@ -1,4 +1,6 @@
+// app/components/sections/Hero.jsx
 "use client";
+import { useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 import { C } from "../../../lib/colors";
 import Reveal from "../ui/Reveal";
@@ -6,6 +8,25 @@ import { useLanguage } from "../../../lib/i18n/LanguageContext";
 
 export default function Hero() {
   const { t } = useLanguage();
+
+  // Daftar path gambar yang akan ditampilkan secara bergantian di bagian Hero
+  const heroImages = [
+    "/homepage.jpg",
+    //"/hero/p1.webp", // Contoh mengambil gambar dari folder gallery
+  ];
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  // Effect untuk mengganti gambar setiap 3 detik
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) =>
+        prevIndex === heroImages.length - 1 ? 0 : prevIndex + 1,
+      );
+    }, 3000); // 3000 ms = 3 detik
+
+    return () => clearInterval(interval); // Membersihkan interval saat komponen di-unmount
+  }, [heroImages.length]);
 
   return (
     <section
@@ -225,23 +246,32 @@ export default function Hero() {
           </Reveal>
         </div>
 
-        {/* Kolom Kanan: Bento grid / Image */}
-        <Reveal delay={300} className="hero-bento">
-          {" "}
-          {/* Class untuk mobile grid item */}
-          <img
-            src="/homepage.jpg"
-            alt="Torise Indonesia Homepage Illustration"
-            style={{
-              width: "100%",
-              height: "100%",
-              maxHeight: "400px",
-              objectFit: "cover",
-              borderRadius: 16,
-              border: "1px solid rgba(255,255,255,0.1)",
-              display: "block",
-            }}
-          />
+        {/* Kolom Kanan: Bento grid / Image Slideshow */}
+        <Reveal
+          delay={300}
+          className="hero-bento relative w-full h-[300px] md:h-[400px]"
+        >
+          {/* Wadah gambar dengan ukuran tetap untuk mencegah lompatan layout */}
+          {heroImages.map((src, index) => (
+            <img
+              key={index}
+              src={src}
+              alt={`Torise Indonesia Slide ${index + 1}`}
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                borderRadius: 16,
+                border: "1px solid rgba(255,255,255,0.1)",
+                opacity: index === currentImageIndex ? 1 : 0, // Hanya gambar aktif yang terlihat
+                transition: "opacity 1s ease-in-out", // Efek fade yang mulus selama 1 detik
+                zIndex: index === currentImageIndex ? 10 : 0,
+              }}
+            />
+          ))}
         </Reveal>
       </div>
 
