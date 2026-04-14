@@ -295,7 +295,7 @@ export default function CompanyPage() {
       </section>
 
       {/* --- CONTACT & FOOTER --- */}
-      <Contact />
+      <Contact imageSrc="/contact-company.jpeg" />
       <Footer />
     </div>
   );

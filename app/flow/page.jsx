@@ -35,7 +35,6 @@ export default function FlowPage() {
       </section>
 
       <main className="max-w-4xl mx-auto px-6 py-16 md:py-24">
-
         {/* --- DAFTAR ALUR (ACCORDION / FAQ STYLE) --- */}
         <div className="space-y-4">
           {t("flowPage.steps").map((step, index) => {
@@ -114,7 +113,7 @@ export default function FlowPage() {
         </div>
       </main>
 
-      <Contact />
+      <Contact imageSrc="/contact-flow.jpeg" />
       <Footer />
     </div>
   );
